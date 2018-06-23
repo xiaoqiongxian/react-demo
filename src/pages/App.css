@@ -1,0 +1,24 @@
+@import '~antd/dist/antd.css';
+
+*{
+	margin: 0;
+	padding: 0;
+}
+#root{
+	height: 100%;
+	width: 100%;
+}
+.app{
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 100%;
+}
+.app-menu{
+	flex: 1;
+	height: 100%;
+}
+.app-main{
+	flex: 9;
+	height: 100%;
+}
