@@ -18,6 +18,9 @@
 	flex: 1;
 	height: 100%;
 }
+.app-menu > ul.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline{
+	height: 100%;
+}
 .app-main{
 	flex: 9;
 	height: 100%;
