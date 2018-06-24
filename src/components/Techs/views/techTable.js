@@ -4,7 +4,7 @@ import {remove} from '../actions.js';
 import {connect} from 'react-redux';
 import { Table, Button } from 'antd';
 
-export const stateKey = 'techTable';
+export const stateKey = 'techs';
 
 function TechTable({onRemove,dataSource}) {
   const columns = [{
@@ -20,7 +20,7 @@ function TechTable({onRemove,dataSource}) {
     dataIndex: 'status',
     key: 'status',
   }, {
-    title: 'Action',
+    title: '操作',
     key: 'action',
     render: (text, record) => (
       <span>
@@ -37,7 +37,7 @@ function TechTable({onRemove,dataSource}) {
 }
 
 const mapStateToProps = (state) => ({
-  dataSource: state[stateKey] || [{key: '1',id:'1',name: 'JavaScript',status: '精通'}]
+  dataSource: state[stateKey] || [{key: '0',id:'0',name: 'JavaScript',status: '精通'}]
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -21,7 +21,7 @@ class view extends React.Component {
           <Menu.Item key="1">Home<Link to="/home"></Link></Menu.Item>
           <Menu.Item key="2">Counter<Link to="/counter"></Link></Menu.Item>
           <Menu.Item key="3">About<Link to="/about"></Link></Menu.Item>
-          <Menu.Item key="4">TechTable<Link to="/techTable"></Link></Menu.Item>
+          <Menu.Item key="4">技能<Link to="/techs"></Link></Menu.Item>
         </SubMenu>
       </Menu>
     );

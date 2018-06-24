@@ -45,21 +45,21 @@ const getCounterPage = (nextState, callback) => {
   }, 'counter');
 };
 
-const getTechTablePage = (nextState, callback) => {
+const getTechsPage = (nextState, callback) => {
   require.ensure([], function(require) {
-    const {page, reducer, stateKey, initialState} = require('./pages/TechTablePage.js');
+    const {page, reducer, stateKey, initialState} = require('./pages/TechsPage.js');
 
     const state = store.getState();
     store.reset(combineReducers({
       ...store._reducers,
-      table: reducer
+      techs: reducer
     }), {
       ...state,
       [stateKey]: initialState
     });
 
     callback(null, page);
-  }, 'techTable');
+  }, 'techs');
 };
 
 const getNotFoundPage = (nextState, callback) => {
@@ -80,7 +80,7 @@ const Routes = () => (
       <Route path="home" getComponent={getHomePage} />
       <Route path="counter" getComponent={getCounterPage} />
       <Route path="about" getComponent={getAboutPage} />
-      <Route path="techTable" getComponent={getTechTablePage} />
+      <Route path="techs" getComponent={getTechsPage} />
       <Route path="*" getComponent={getNotFoundPage} />
     </Route>
   </Router>

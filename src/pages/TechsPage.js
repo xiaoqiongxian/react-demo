@@ -1,19 +1,19 @@
 import React from 'react';
-import {view as TechTable, stateKey, reducer} from '../components/TechTable';
+import {view as Techs, stateKey, reducer} from '../components/Techs';
 
 const page = () => {
   return (
     <div>
-      <TechTable />
+      <Techs />
     </div>
   );
 };
 
 const initialState = [{
-  key: '1',
-  id:'1',
-  name: 'JavaScript',
-  status: '精通'
+	key:'0',
+  	id:'0',
+  	name: 'JavaScript',
+  	status: '精通'
 }];
 
 export {page, reducer, initialState, stateKey};
