@@ -5,23 +5,39 @@
 	padding: 0;
 }
 #root{
-	height: 100%;
 	width: 100%;
+	height: 100%
 }
 .app{
+	width: 100%;
+	height: 100%
+}
+.app-header{
+	width: 100%;
+	height: 60px;
+	background-color: #e6f7ff;
+	color: #1890ff;
+}
+.header-title{
+	display: inline-block;
+    width: 200px;
+    height: 100%;
+    font-size: 26px;
+    padding: 8px 0 0 20px;
+}
+.main{
 	display: flex;
 	flex-direction: row;
-	height: 100%;
 	width: 100%;
+	height: 100%
 }
-.app-menu{
-	flex: 1;
-	height: 100%;
+.left-menu{
+	flex:1;
 }
-.app-menu > ul.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline{
-	height: 100%;
+.left-menu > ul.ant-menu.ant-menu-light.ant-menu-root.ant-menu-vertical{
+	height: 100%
 }
-.app-main{
-	flex: 9;
-	height: 100%;
+.right-container{
+	flex: 10;
+	margin: 20px;
 }

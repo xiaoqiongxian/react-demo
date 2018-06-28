@@ -1,43 +1,49 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
-import {remove} from '../actions.js';
+import {remove} from './../actions.js';
 import {connect} from 'react-redux';
-import { Table, Button } from 'antd';
+import { Table,Icon} from 'antd';
+import UpdateTech from './updateTech.js';
 
+const { Column} = Table;
 export const stateKey = 'techs';
 
-function TechTable({onRemove,dataSource}) {
-  const columns = [{
-    title: 'id',
-    dataIndex: 'id',
-    key: 'id',
-  }, {
-    title: '名称',
-    dataIndex: 'name',
-    key: 'name',
-  }, {
-    title: '掌握程度',
-    dataIndex: 'status',
-    key: 'status',
-  }, {
-    title: '操作',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <Button type="danger" onClick={() => onRemove(record.id)}>Delete</Button>
-      </span>
-    ),
-  }];
-
+function TechTable({onRemove, data}) {
   return (
     <div>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={data}>
+        <Column
+          title="id"
+          dataIndex="id"
+          key="id"
+        />
+        <Column
+          title="name"
+          dataIndex="name"
+          key="name"
+        />
+        <Column
+          title="status"
+          dataIndex="status"
+          key="status"
+        />
+        <Column
+          title="操作"
+          key="action"
+          render={(text, record) => (
+            <div>
+              <UpdateTech id={record.id} name={record.name} status={record.status} />
+              <Icon type="delete" onClick={() => onRemove(record.id)}></Icon>
+            </div>
+          )}
+        />
+      </Table>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  dataSource: state[stateKey] || [{key: '0',id:'0',name: 'JavaScript',status: '精通'}]
+  data: state[stateKey] || [{key:"0",id:"0",name:"javascript",status:"精通"}]
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

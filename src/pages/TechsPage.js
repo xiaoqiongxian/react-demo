@@ -9,11 +9,6 @@ const page = () => {
   );
 };
 
-const initialState = [{
-	key:'0',
-  	id:'0',
-  	name: 'JavaScript',
-  	status: '精通'
-}];
+const initialState = [{key:"0",id:"0",name:"javascript",status:"精通"}];
 
 export {page, reducer, initialState, stateKey};

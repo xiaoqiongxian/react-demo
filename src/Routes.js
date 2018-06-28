@@ -22,12 +22,6 @@ const getHomePage = (nextState, callback) => {
   }, 'home');
 };
 
-const getAboutPage = (nextState, callback) => {
-  require.ensure([], function(require) {
-    callback(null, require('./pages/About.js').default);
-  }, 'about');
-};
-
 const getCounterPage = (nextState, callback) => {
   require.ensure([], function(require) {
     const {page, reducer, stateKey, initialState} = require('./pages/CounterPage.js');
@@ -62,13 +56,28 @@ const getTechsPage = (nextState, callback) => {
   }, 'techs');
 };
 
+const getWeatherPage = (nextState, callback) => {
+  require.ensure([], function(require) {
+    const {page, reducer, stateKey, initialState} = require('./pages/WeatherPage.js');
+
+    const state = store.getState();
+    store.reset(combineReducers({
+      ...store._reducers,
+      weather: reducer
+    }), {
+      ...state,
+      [stateKey]: initialState
+    });
+
+    callback(null, page);
+  }, 'weather');
+};
+
 const getNotFoundPage = (nextState, callback) => {
   require.ensure([], function(require) {
     callback(null, require('./pages/NotFound.js').default);
   }, '404');
 };
-
-
 
 const history = syncHistoryWithStore(browserHistory, store);
 //const history = browserHistory;
@@ -79,8 +88,8 @@ const Routes = () => (
       <IndexRoute getComponent={getHomePage} />
       <Route path="home" getComponent={getHomePage} />
       <Route path="counter" getComponent={getCounterPage} />
-      <Route path="about" getComponent={getAboutPage} />
       <Route path="techs" getComponent={getTechsPage} />
+      <Route path="weather" getComponent={getWeatherPage} />
       <Route path="*" getComponent={getNotFoundPage} />
     </Route>
   </Router>

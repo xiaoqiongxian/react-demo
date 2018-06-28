@@ -1,6 +1,7 @@
+
 import React from 'react';
 import {bindActionCreators} from 'redux';
-import {increment, decrement} from './actions.js';
+import {increment, decrement} from './../actions.js';
 import {connect} from 'react-redux';
 
 const buttonStyle = {
