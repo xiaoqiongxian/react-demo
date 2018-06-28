@@ -5,7 +5,7 @@ import {update} from '../actions.js';
 
 const FormItem  = Form.Item;
 
-const UpdateForm = Form.create({
+/*const UpdateForm = Form.create({
   onFieldsChange(props,changedFields){
       debugger
       props.onChange(changedFields);
@@ -70,7 +70,78 @@ const UpdateForm = Form.create({
       </Form>
     </Modal>
   )
-})
+})*/
+
+const UpdateForm = Form.create({
+  onFieldsChange(props,changedFields){
+      debugger
+      props.onChange(changedFields);
+    },
+
+    mapPropsToFields(props){
+      return {
+        name:Form.createFormField({
+          ...props.name,
+          value:props.name.value
+        }),
+        status:Form.createFormField({
+          ...props.status,
+          value:props.status.value
+        })
+      }
+    },
+
+    onValuesChange(_,values){
+      console.log(values)
+    }
+
+})(
+  class extends React.Component {
+    render(){
+      const {visible,onCancel,onCreate,form} = this.props;
+      const { getFieldDecorator } = form;
+      const formItemLayout = {
+        labelCol:{
+          sm:{span:4}
+        },
+        wrapperCol:{
+          sm:{span:20}
+        }
+      }
+      return (
+        <Modal
+          visible={visible}
+          title="修改"
+          okText="确定"
+          cancelText="取消"
+          onCancel={onCancel}
+          onOk={onCreate}
+        >
+          <Form layout="vertical">
+            <FormItem 
+            {...formItemLayout}
+            label="技能">
+              {getFieldDecorator("name",{
+                rules:[{required:true,message:"请输入技能"}],
+              })(
+                <Input />
+              )}
+            </FormItem>
+            <FormItem 
+            {...formItemLayout}
+            label="掌握程度">
+              {getFieldDecorator("status",{
+                rules:[{required:true,message:"请输入掌握程度"}],
+              })(
+                <Input />
+              )}
+            </FormItem>
+          </Form>
+        </Modal>
+      )
+    }
+  }
+)
 
 class UpdateTech extends React.Component {
   constructor(props, context) {
@@ -107,25 +178,7 @@ class UpdateTech extends React.Component {
 
   handleUpdate = () => {
     const _self = this;
-
-    _self.setState({
-          confirmLoading: true,
-        });
-        setTimeout(() => {
-          _self.setState({
-            visible: false,
-            confirmLoading: false,
-          });
-        }, 200);
-        let tech = {
-          key:_self.state.key,
-          id:_self.state.id,
-          name:_self.state.fields.name.value,
-          status:_self.state.fields.status.value
-        }
-        _self.props.onUpdate(tech);
-
-    /*const form = this.formRef.props.form;
+    const form = this.formRef.props.form;
     form.validateFields((err, valus)=>{
       if(err){
         return;
@@ -148,16 +201,13 @@ class UpdateTech extends React.Component {
         _self.props.onUpdate(tech);
         form.reset
       }
-    })*/
+    })
   }
   handleCancel = () => {
     console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
-  }
-  saveFormRef = (formRef)=>{
-    this.formRef = formRef;
   }
 
   render() {
@@ -169,7 +219,7 @@ class UpdateTech extends React.Component {
         <UpdateForm
           {...fields}
           onChange={this.handelFormChange}
-          
+          wrappedComponentRef={(inst) => this.formRef = inst}
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleUpdate}

@@ -5,7 +5,7 @@ import {add} from '../actions.js';
 
 const FormItem  = Form.Item;
 
-const AddForm = Form.create({
+/*const AddForm = Form.create({
   onFieldsChange(props,changedFields){
       debugger
       props.onChange(changedFields);
@@ -70,27 +70,33 @@ const AddForm = Form.create({
       </Form>
     </Modal>
   )
-})
+})*/
 
-/*const AddForm = Form.create()(
-  class extends React.Component {
-    onFieldsChange(props,changedFields){
+const AddForm = Form.create({
+  onFieldsChange(props,changedFields){
       debugger
       props.onChange(changedFields);
-    }
+    },
 
     mapPropsToFields(props){
       return {
         name:Form.createFormField({
           ...props.name,
           value:props.name.value
-        },{
+        }),
+        status:Form.createFormField({
           ...props.status,
           value:props.status.value
         })
       }
+    },
+
+    onValuesChange(_,values){
+      console.log(values)
     }
 
+})(
+  class extends React.Component {
     render(){
       const {visible,onCancel,onCreate,form} = this.props;
       const { getFieldDecorator } = form;
@@ -135,7 +141,7 @@ const AddForm = Form.create({
       )
     }
   }
-)*/
+)
 
 class AddTech extends React.Component {
   constructor(props, context) {
@@ -175,25 +181,8 @@ class AddTech extends React.Component {
 
   handleCreate = () => {
     const _self = this;
-    /*const form = this.formRef.props.form;*/
-
-_self.setState({
-          confirmLoading: true,
-        });
-        setTimeout(() => {
-          _self.setState({
-            visible: false,
-            confirmLoading: false,
-          });
-        }, 200);
-        debugger
-        let tech = {
-          name:_self.state.fields.name.value,
-          status:_self.state.fields.status.value
-        }
-        _self.props.onAdd(tech);
-
-    /*form.validateFields((err, valus)=>{
+    const form = this.formRef.props.form;
+    form.validateFields((err, valus)=>{
       if(err){
         return;
       }else{
@@ -206,7 +195,6 @@ _self.setState({
             confirmLoading: false,
           });
         }, 200);
-        debugger
         let tech = {
           name:_self.state.fields.name.value,
           status:_self.state.fields.status.value
@@ -214,11 +202,10 @@ _self.setState({
         _self.props.onAdd(tech);
         form.reset
       }
-    })*/
+    })
   }
 
   saveFormRef = (formRef)=>{
-    debugger
     this.formRef = formRef;
   }
   
@@ -231,7 +218,7 @@ _self.setState({
         <AddForm
           {...fields}
           onChange={this.handelFormChange}
-          
+          wrappedComponentRef={(inst) => this.formRef = inst}
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
