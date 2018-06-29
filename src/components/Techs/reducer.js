@@ -19,16 +19,20 @@ export default (state = [], action) => {
       })
     }
     case UPDATE: {
-      return state.map((tech)=>{
+      let res = [];
+      state.map((tech) => {
         if(tech.id === action.id){
-          return {
+          res.push({
             key:action.key,
             id:action.id,
             name:action.name,
             status:action.status
-          }
+          })
+        }else{
+          res.push(tech)
         }
       })
+      return res;
     }
     case REMOVE: {
       return state.filter((tech) => {
